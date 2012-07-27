@@ -99,7 +99,7 @@ AuthServer.prototype.getTokenData = function(context, callback) {
 					tokenData.scope = scope.join();
 				}
 			} else {
-				tokenData = errors.invalidUserCredentials(context.state);
+				tokenData = errors.userCredentialsInvalid(context.state);
 			}
 			return callback(tokenData);
 		});
