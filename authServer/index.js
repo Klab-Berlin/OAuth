@@ -8,7 +8,7 @@ function AuthServer(clientService, tokenService, authorizationService, membershi
 	this.tokenService = tokenService;
 	this.authorizationService = authorizationService;
 	this.membershipService = membershipService;
-	this.expiresIn = expiresIn || 3600;
+	this.expiresIn = expiresIn || 3600000;
 
  	this.isSupportedScope = function(scope) {
 		if (!supportedScopes)
@@ -21,7 +21,7 @@ function AuthServer(clientService, tokenService, authorizationService, membershi
 	};
 	
 	this.getExpiresDate = function() {
-		return new Date(new Date().getTime() + expiresIn * 60000);
+		return new Date().getTime() + expiresIn;
 	};
 };
 
