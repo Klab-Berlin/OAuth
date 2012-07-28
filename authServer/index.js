@@ -92,7 +92,7 @@ AuthServer.prototype.getTokenData = function(context, callback) {
 	}
 	else if (grantType === grantTypes.password) {
 		self.membershipService.areUserCredentialsValid(context.userName, context.password, context.scope, function(isValidPassword) {
-			var tokenData = isValidPassword ? generateTokenDataRef(true) : errors.invalidUserCredentials(context.state);
+			var tokenData = isValidPassword ? generateTokenDataRef(true) : errors.userCredentialsInvalid(context.state);
 			return callback(tokenData);
 		});
 	}
