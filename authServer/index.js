@@ -143,20 +143,23 @@ AuthServer.prototype.grantAccessToken = function(req, userId, callback) {
 AuthServer.prototype.validateAccessToken = function(req, callback) {
 	var self = this,
 		context = httpOAuthContext(req),
-		response = { isValid: true };
+		response;
 
 	return self.authorizationService.getAccessToken(context.accessToken, function(tokenData) {
 		if (!tokenData || !tokenData.access_token)
+		{
 			response = {
 				isValid: false,
 				error: 'Access token not found'
-			};
-		else if (authUtil.isExpired(tokenData.expires_in)) 
+			};			
+		} else if (authUtil.isExpired(tokenData.expires_in)) {
 			response = {
 				isValid: false,
 				error: 'Access token has expired'
-			};
-				
+			};			
+		} else {
+			response = tokenData;
+		}
 		return callback(response);
 	});
 };
