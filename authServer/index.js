@@ -91,16 +91,8 @@ AuthServer.prototype.getTokenData = function(context, callback) {
 		});
 	}
 	else if (grantType === grantTypes.password) {
-		self.membershipService.areUserCredentialsValid(context.userName, context.password, context.scope, function(isValidPassword, scope) {
-			var tokenData;
-			if (isValidPassword) {
-				tokenData = generateTokenDataRef(true);
-				if (scope !== null) {
-					tokenData.scope = scope.join();
-				}
-			} else {
-				tokenData = errors.userCredentialsInvalid(context.state);
-			}
+		self.membershipService.areUserCredentialsValid(context.userName, context.password, context.scope, function(isValidPassword) {
+			var tokenData = isValidPassword ? generateTokenDataRef(true) : errors.invalidUserCredentials(context.state);
 			return callback(tokenData);
 		});
 	}

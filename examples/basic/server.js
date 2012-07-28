@@ -51,7 +51,7 @@ var authCodes = {},
 	},
 	membershipService = {
 		areUserCredentialsValid: function(userName, password, scope, callback) {
-			return callback(true, scope);
+			return callback(true);
 		}
 	},
 	supportedScopes = [ 'profile', 'status', 'avatar'],
