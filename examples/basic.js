@@ -9,14 +9,12 @@ var authCodes = {},
 		'1': {
 			id: '1',
 			secret: 'what',
-			grantTypes: ['implicit', 'password', 'client_credentials', 'authorization_code'],
-			isValidRedirectUri: function(uri) { return true; }
+			grantTypes: ['implicit', 'password', 'client_credentials', 'authorization_code']
 		},
 		'dummy': {
 			id: 'dummy',
 			secret: '',
-			grantTypes: ['password'],
-			isValidRedirectUri: function(uri) { return true; }
+			grantTypes: ['password']
 		}
 	},
 	clientService = {
@@ -26,11 +24,15 @@ var authCodes = {},
 			} else {
 				return callback(clients[id]);
 			}
-		}
+		},
+		isValidRedirectUri: function(client,uri) { return true; }
 	},
 	tokenService = {
 		generateToken: function() { 
 			return uuid.v4(); 
+		},
+		generateDeviceCode: function() {
+			return generateToken();
 		}
 	},
 	authorizationService = {
